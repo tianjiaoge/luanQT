@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luan.dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.luan.model.Department" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="depar_name" property="deparName" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, depar_name, alias
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from department
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.luan.model.Department" >
+    insert into department (id, depar_name, alias
+      )
+    values (#{id,jdbcType=VARCHAR}, #{deparName,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luan.model.Department" >
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deparName != null" >
+        depar_name,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="deparName != null" >
+        #{deparName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        #{alias,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luan.model.Department" >
+    update department
+    <set >
+      <if test="deparName != null" >
+        depar_name = #{deparName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luan.model.Department" >
+    update department
+    set depar_name = #{deparName,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findDepartByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+SELECT
+ department.alias
+FROM
+	role_department ,department
+WHERE role_department.department_id=department.id and
+	role_id IN (
+		SELECT
+			role_id
+		FROM
+			user_role
+		WHERE
+			user_id = #{userId}
+	)
+
+  </select>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luan.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.luan.model.Menu" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
+    <result column="menu_code" property="menuCode" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="orders" property="orders" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="available" property="available" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, menu_name, menu_type, menu_code, menu_url, orders, parent_id, available
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from menu
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.luan.model.Menu" >
+    insert into menu (id, menu_name, menu_type, 
+      menu_code, menu_url, orders, 
+      parent_id, available)
+    values (#{id,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR}, 
+      #{menuCode,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, #{orders,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=VARCHAR}, #{available,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.luan.model.Menu" >
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="menuType != null" >
+        menu_type,
+      </if>
+      <if test="menuCode != null" >
+        menu_code,
+      </if>
+      <if test="menuUrl != null" >
+        menu_url,
+      </if>
+      <if test="orders != null" >
+        orders,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="available != null" >
+        available,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luan.model.Menu" >
+    update menu
+    <set >
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        menu_type = #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        menu_code = #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        available = #{available,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luan.model.Menu" >
+    update menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_type = #{menuType,jdbcType=VARCHAR},
+      menu_code = #{menuCode,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      orders = #{orders,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      available = #{available,jdbcType=BIT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+<resultMap id="MenuEntityResultMap" type="com.luan.entity.MenusEntity" extends="BaseResultMap">
+<!--使用鉴别器判断是 menu 查询二级菜单 button 不查询-->
+  <discriminator javaType="java.lang.String" column="menu_type">
+    <case value="menu" resultMap="secondMenusResultMap"></case>
+  </discriminator>
+</resultMap>
+  <!--查询二级菜单-->
+  <resultMap id="secondMenusResultMap" type="com.luan.entity.MenusEntity" extends="MenuEntityResultMap">
+    <collection property="secondMenus" column="id" select="selectByParentId"/>
+  </resultMap>
+
+  <select id="selectByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    where parent_id = #{id,jdbcType=VARCHAR} order by  orders
+  </select>
+  <!-- 查询资源权限的方法 -->
+  <select id="getMenu" resultMap="MenuEntityResultMap">
+  	SELECT
+	*
+FROM
+	menu
+WHERE menu_type =#{menuType} and available='0'
+  <if test="menuType=='menu'">
+  and parent_id = '0'
+  </if>
+	 and id IN (
+		SELECT
+			menu_id
+		FROM
+			role_menu
+		WHERE
+			role_id = (
+				SELECT
+					role_id
+				FROM
+					user_role
+				WHERE
+					user_id = #{userId}
+			)
+	) order by orders
+  </select>
+</mapper>

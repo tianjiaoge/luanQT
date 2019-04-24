@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luan.dao.AssayMapper" >
+  <resultMap id="BaseResultMap" type="com.luan.model.Assay" >
+     <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="marge_code" property="margeCode" jdbcType="VARCHAR" />
+    <result column="sender" property="sender" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="rule_merge_id" property="ruleMergeId" jdbcType="VARCHAR" />
+    <result column="depatment_code" property="depatmentCode" jdbcType="VARCHAR" />
+    <result column="sample_codes" property="sampleCodes" jdbcType="VARCHAR" />
+    <result column="marge_carnums" property="margeCarnums" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="template_id" property="templateId" jdbcType="VARCHAR" />
+    <result column="template_name" property="templateName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="add_name" property="addName" jdbcType="VARCHAR" />
+    <result column="add_id" property="addId" jdbcType="VARCHAR" />
+    <result column="confirm_id" property="confirmId" jdbcType="VARCHAR" />
+    <result column="confirm_time" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="confirm_name" property="confirmName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.luan.model.Assay" extends="BaseResultMap" >
+    <result column="note" property="note" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, marge_code, sender, type, rule_merge_id, depatment_code, sample_codes, marge_carnums, 
+    state, template_id, template_name, create_time, create_name, create_id, add_time, 
+    add_name, add_id, confirm_id, confirm_time, confirm_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from assay
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from assay
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.luan.model.Assay" >
+    insert into assay (id, marge_code, sender, 
+      type, rule_merge_id, depatment_code, 
+      sample_codes, marge_carnums, state, 
+      template_id, template_name, create_time, 
+      create_name, create_id, add_time, 
+      add_name, add_id, confirm_id, 
+      confirm_time, confirm_name, note
+      )
+    values (#{id,jdbcType=VARCHAR}, #{margeCode,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{ruleMergeId,jdbcType=VARCHAR}, #{depatmentCode,jdbcType=VARCHAR}, 
+      #{sampleCodes,jdbcType=VARCHAR}, #{margeCarnums,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{templateId,jdbcType=VARCHAR}, #{templateName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createName,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{addName,jdbcType=VARCHAR}, #{addId,jdbcType=VARCHAR}, #{confirmId,jdbcType=VARCHAR}, 
+      #{confirmTime,jdbcType=TIMESTAMP}, #{confirmName,jdbcType=VARCHAR}, #{note,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luan.model.Assay" >
+    insert into assay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="margeCode != null" >
+        marge_code,
+      </if>
+      <if test="sender != null" >
+        sender,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ruleMergeId != null" >
+        rule_merge_id,
+      </if>
+      <if test="depatmentCode != null" >
+        depatment_code,
+      </if>
+      <if test="sampleCodes != null" >
+        sample_codes,
+      </if>
+      <if test="margeCarnums != null" >
+        marge_carnums,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="templateName != null" >
+        template_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createName != null" >
+        create_name,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="addName != null" >
+        add_name,
+      </if>
+      <if test="addId != null" >
+        add_id,
+      </if>
+      <if test="confirmId != null" >
+        confirm_id,
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time,
+      </if>
+      <if test="confirmName != null" >
+        confirm_name,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="margeCode != null" >
+        #{margeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleMergeId != null" >
+        #{ruleMergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="depatmentCode != null" >
+        #{depatmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleCodes != null" >
+        #{sampleCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="margeCarnums != null" >
+        #{margeCarnums,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addName != null" >
+        #{addName,jdbcType=VARCHAR},
+      </if>
+      <if test="addId != null" >
+        #{addId,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmId != null" >
+        #{confirmId,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmName != null" >
+        #{confirmName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luan.model.Assay" >
+    update assay
+    <set >
+      <if test="margeCode != null" >
+        marge_code = #{margeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleMergeId != null" >
+        rule_merge_id = #{ruleMergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="depatmentCode != null" >
+        depatment_code = #{depatmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleCodes != null" >
+        sample_codes = #{sampleCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="margeCarnums != null" >
+        marge_carnums = #{margeCarnums,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null" >
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createName != null" >
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addName != null" >
+        add_name = #{addName,jdbcType=VARCHAR},
+      </if>
+      <if test="addId != null" >
+        add_id = #{addId,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmId != null" >
+        confirm_id = #{confirmId,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmName != null" >
+        confirm_name = #{confirmName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.luan.model.Assay" >
+    update assay
+    set marge_code = #{margeCode,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      rule_merge_id = #{ruleMergeId,jdbcType=VARCHAR},
+      depatment_code = #{depatmentCode,jdbcType=VARCHAR},
+      sample_codes = #{sampleCodes,jdbcType=VARCHAR},
+      marge_carnums = #{margeCarnums,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      template_id = #{templateId,jdbcType=VARCHAR},
+      template_name = #{templateName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      add_name = #{addName,jdbcType=VARCHAR},
+      add_id = #{addId,jdbcType=VARCHAR},
+      confirm_id = #{confirmId,jdbcType=VARCHAR},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      confirm_name = #{confirmName,jdbcType=VARCHAR},
+      note = #{note,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luan.model.Assay" >
+    update assay
+    set marge_code = #{margeCode,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      rule_merge_id = #{ruleMergeId,jdbcType=VARCHAR},
+      depatment_code = #{depatmentCode,jdbcType=VARCHAR},
+      sample_codes = #{sampleCodes,jdbcType=VARCHAR},
+      marge_carnums = #{margeCarnums,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      template_id = #{templateId,jdbcType=VARCHAR},
+      template_name = #{templateName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      add_name = #{addName,jdbcType=VARCHAR},
+      add_id = #{addId,jdbcType=VARCHAR},
+      confirm_id = #{confirmId,jdbcType=VARCHAR},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      confirm_name = #{confirmName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

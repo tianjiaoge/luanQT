@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luan.dao.TbSamplingMapper" >
+  <resultMap id="BaseResultMap" type="com.luan.model.TbSampling" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="billno" property="billno" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="supplier" property="supplier" jdbcType="VARCHAR" />
+    <result column="coaltype" property="coaltype" jdbcType="VARCHAR" />
+    <result column="carnum" property="carnum" jdbcType="VARCHAR" />
+    <result column="identifying" property="identifying" jdbcType="VARCHAR" />
+    <result column="biller" property="biller" jdbcType="VARCHAR" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="heyangstate" property="heyangstate" jdbcType="INTEGER" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+    <result column="checkTime" property="checktime" jdbcType="TIMESTAMP" />
+    <result column="CardID" property="cardid" jdbcType="VARCHAR" />
+    <result column="Cargoname" property="cargoname" jdbcType="VARCHAR" />
+    <result column="Recevier" property="recevier" jdbcType="VARCHAR" />
+    <result column="LinkID" property="linkid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, billno, time, supplier, coaltype, carnum, identifying, biller, auditor, note, 
+    createTime, state, heyangstate, ext3, ext4, checkTime, CardID, Cargoname, Recevier, 
+    LinkID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sampling
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_sampling
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.luan.model.TbSampling" >
+    insert into tb_sampling (id, billno, time, 
+      supplier, coaltype, carnum, 
+      identifying, biller, auditor, 
+      note, createTime, state, 
+      heyangstate, ext3, ext4, 
+      checkTime, CardID, Cargoname, 
+      Recevier, LinkID)
+    values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{supplier,jdbcType=VARCHAR}, #{coaltype,jdbcType=VARCHAR}, #{carnum,jdbcType=VARCHAR}, 
+      #{identifying,jdbcType=VARCHAR}, #{biller,jdbcType=VARCHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
+      #{heyangstate,jdbcType=INTEGER}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, 
+      #{checktime,jdbcType=TIMESTAMP}, #{cardid,jdbcType=VARCHAR}, #{cargoname,jdbcType=VARCHAR}, 
+      #{recevier,jdbcType=VARCHAR}, #{linkid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.luan.model.TbSampling" >
+    insert into tb_sampling
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billno != null" >
+        billno,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="supplier != null" >
+        supplier,
+      </if>
+      <if test="coaltype != null" >
+        coaltype,
+      </if>
+      <if test="carnum != null" >
+        carnum,
+      </if>
+      <if test="identifying != null" >
+        identifying,
+      </if>
+      <if test="biller != null" >
+        biller,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="heyangstate != null" >
+        heyangstate,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="checktime != null" >
+        checkTime,
+      </if>
+      <if test="cardid != null" >
+        CardID,
+      </if>
+      <if test="cargoname != null" >
+        Cargoname,
+      </if>
+      <if test="recevier != null" >
+        Recevier,
+      </if>
+      <if test="linkid != null" >
+        LinkID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="billno != null" >
+        #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplier != null" >
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="coaltype != null" >
+        #{coaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="carnum != null" >
+        #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="identifying != null" >
+        #{identifying,jdbcType=VARCHAR},
+      </if>
+      <if test="biller != null" >
+        #{biller,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="heyangstate != null" >
+        #{heyangstate,jdbcType=INTEGER},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardid != null" >
+        #{cardid,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoname != null" >
+        #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="recevier != null" >
+        #{recevier,jdbcType=VARCHAR},
+      </if>
+      <if test="linkid != null" >
+        #{linkid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luan.model.TbSampling" >
+    update tb_sampling
+    <set >
+      <if test="billno != null" >
+        billno = #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplier != null" >
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="coaltype != null" >
+        coaltype = #{coaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="carnum != null" >
+        carnum = #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="identifying != null" >
+        identifying = #{identifying,jdbcType=VARCHAR},
+      </if>
+      <if test="biller != null" >
+        biller = #{biller,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="heyangstate != null" >
+        heyangstate = #{heyangstate,jdbcType=INTEGER},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        checkTime = #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardid != null" >
+        CardID = #{cardid,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoname != null" >
+        Cargoname = #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="recevier != null" >
+        Recevier = #{recevier,jdbcType=VARCHAR},
+      </if>
+      <if test="linkid != null" >
+        LinkID = #{linkid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luan.model.TbSampling" >
+    update tb_sampling
+    set billno = #{billno,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      coaltype = #{coaltype,jdbcType=VARCHAR},
+      carnum = #{carnum,jdbcType=VARCHAR},
+      identifying = #{identifying,jdbcType=VARCHAR},
+      biller = #{biller,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER},
+      heyangstate = #{heyangstate,jdbcType=INTEGER},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      checkTime = #{checktime,jdbcType=TIMESTAMP},
+      CardID = #{cardid,jdbcType=VARCHAR},
+      Cargoname = #{cargoname,jdbcType=VARCHAR},
+      Recevier = #{recevier,jdbcType=VARCHAR},
+      LinkID = #{linkid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

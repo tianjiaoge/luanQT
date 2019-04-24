@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luan.dao.SamplingMapper" >
+  <resultMap id="BaseResultMap" type="com.luan.model.Sampling" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="sample_code" property="sampleCode" jdbcType="VARCHAR" />
+    <result column="link_id" property="linkId" jdbcType="VARCHAR" />
+    <result column="sender" property="sender" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="cargoname" property="cargoname" jdbcType="VARCHAR" />
+    <result column="carnum" property="carnum" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="BIT" />
+    <result column="merge_state" property="mergeState" jdbcType="BIT" />
+    <result column="merge_code" property="mergeCode" jdbcType="VARCHAR" />
+    <result column="merge_rule" property="mergeRule" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="depatment_code" property="depatmentCode" jdbcType="VARCHAR" />
+    <result column="rule_merge_id" property="ruleMergeId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sample_code, link_id, sender, type, cargoname, carnum, department_id, state,
+    merge_state, merge_code, merge_rule, create_id, create_time, depatment_code, rule_merge_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sampling
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sampling
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.luan.model.Sampling" >
+    insert into sampling (id, sample_code, link_id,
+      sender, type, cargoname,
+      carnum, department_id, state,
+      merge_state, merge_code, merge_rule,
+      create_id, create_time, depatment_code,
+      rule_merge_id)
+    values (#{id,jdbcType=VARCHAR}, #{sampleCode,jdbcType=VARCHAR}, #{linkId,jdbcType=VARCHAR},
+      #{sender,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{cargoname,jdbcType=VARCHAR},
+      #{carnum,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, #{state,jdbcType=BIT},
+      #{mergeState,jdbcType=BIT}, #{mergeCode,jdbcType=VARCHAR}, #{mergeRule,jdbcType=INTEGER},
+      #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{depatmentCode,jdbcType=VARCHAR},
+      #{ruleMergeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.luan.model.Sampling" >
+    insert into sampling
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sampleCode != null" >
+        sample_code,
+      </if>
+      <if test="linkId != null" >
+        link_id,
+      </if>
+      <if test="sender != null" >
+        sender,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="cargoname != null" >
+        cargoname,
+      </if>
+      <if test="carnum != null" >
+        carnum,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="mergeState != null" >
+        merge_state,
+      </if>
+      <if test="mergeCode != null" >
+        merge_code,
+      </if>
+      <if test="mergeRule != null" >
+        merge_rule,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="depatmentCode != null" >
+        depatment_code,
+      </if>
+      <if test="ruleMergeId != null" >
+        rule_merge_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleCode != null" >
+        #{sampleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkId != null" >
+        #{linkId,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoname != null" >
+        #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="carnum != null" >
+        #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+      <if test="mergeState != null" >
+        #{mergeState,jdbcType=BIT},
+      </if>
+      <if test="mergeCode != null" >
+        #{mergeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeRule != null" >
+        #{mergeRule,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depatmentCode != null" >
+        #{depatmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleMergeId != null" >
+        #{ruleMergeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luan.model.Sampling" >
+    update sampling
+    <set >
+      <if test="sampleCode != null" >
+        sample_code = #{sampleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkId != null" >
+        link_id = #{linkId,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoname != null" >
+        cargoname = #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="carnum != null" >
+        carnum = #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="mergeState != null" >
+        merge_state = #{mergeState,jdbcType=BIT},
+      </if>
+      <if test="mergeCode != null" >
+        merge_code = #{mergeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeRule != null" >
+        merge_rule = #{mergeRule,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depatmentCode != null" >
+        depatment_code = #{depatmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleMergeId != null" >
+        rule_merge_id = #{ruleMergeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luan.model.Sampling" >
+    update sampling
+    set sample_code = #{sampleCode,jdbcType=VARCHAR},
+      link_id = #{linkId,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      cargoname = #{cargoname,jdbcType=VARCHAR},
+      carnum = #{carnum,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      state = #{state,jdbcType=BIT},
+      merge_state = #{mergeState,jdbcType=BIT},
+      merge_code = #{mergeCode,jdbcType=VARCHAR},
+      merge_rule = #{mergeRule,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      depatment_code = #{depatmentCode,jdbcType=VARCHAR},
+      rule_merge_id = #{ruleMergeId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectMaxMergeCodeAndCountBySender" resultType="java.util.Map">
+    SELECT
+	COUNT(0) as count,
+	merge_code as mergeCode
+FROM
+	(
+		SELECT
+			merge_code
+		FROM
+			sampling
+		WHERE
+			merge_state = '0'
+		AND rule_merge_id =#{ruleMargeId}
+		AND depatment_code=#{depatmentCode}
+		ORDER BY
+			create_time DESC
+		LIMIT 10000000
+	) a
+  </select>
+
+<select id="selectMaxSampleCode" parameterType="java.lang.String" resultType="java.lang.String">
+select sample_code from sampling WHERE depatment_code=#{depatmentCode} ORDER BY create_time desc LIMIT 1
+</select>
+
+  <select id="selectByLinkId" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+    select <include refid="Base_Column_List"/> from  sampling where link_id=#{linkId}
+  </select>
+
+    <select id="getSampleOperateData" parameterType="java.lang.String" resultType="java.util.Map">
+  SELECT
+	count(1) AS count,
+	GROUP_CONCAT(sample_code ORDER BY sample_code) AS sampleCodes,
+	GROUP_CONCAT(state ORDER BY sample_code) AS states,
+	merge_rule AS mergeRule
+FROM sampling WHERE
+	depatment_code =  #{depatmentCode}
+AND merge_state = 0
+GROUP BY
+	merge_code
+ORDER BY sampleCodes
+    </select>
+
+  <select id="selectMargeItem" parameterType="java.lang.String" resultType="java.util.Map">
+    SELECT
+	merge_rule AS mergeRule,
+	GROUP_CONCAT(CASE
+	when sample_code=#{sampleCode} THEN
+		id
+	else null end) as id,
+	SUM(
+		CASE
+		WHEN state = 1 THEN
+			1
+		ELSE
+			0
+		END
+	) AS saoMaCount,
+	GROUP_CONCAT(CASE
+	when sample_code=#{sampleCode} THEN
+		merge_state
+	else null end) as mergeState,
+	rule_merge_id as ruleMergeId,
+	sender,
+	type,
+	GROUP_CONCAT(sample_code ORDER BY sample_code)as sampleCodes,
+	GROUP_CONCAT(carnum ORDER BY sample_code)as carnums,
+	merge_code as mergeCode
+FROM
+	sampling
+WHERE
+	merge_code =
+(select merge_code from sampling WHERE sample_code=#{sampleCode} order by create_time desc limit 1)
+  </select>
+
+  <update id="updateMargeStateByMargeCode" parameterType="java.lang.String">
+    update sampling set
+      state = 1,
+      merge_state = 1
+    where merge_code = #{mergeCode}
+  </update>
+  <!--查询采样统计数据-->
+  <select id="selectSamplingCount" resultType="java.util.Map">
+      SELECT
+          COUNT(1) as count,
+          DATE_FORMAT(create_time, '%m-%d') AS date
+      FROM
+          sampling
+      GROUP BY
+          DATE_FORMAT(create_time, '%y-%m-%d')
+
+  </select>
+</mapper>

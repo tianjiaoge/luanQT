@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <!-- 加载数据库配置文件 -->
+   <!-- <context:property-placeholder location="classpath:db.properties"/>-->
+    <!-- 加载properties文件 -->
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:/db.properties</value>
+                <value>classpath*:/redis.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 开启扫描器 创建对象 -->
+    <context:component-scan base-package="com.luan.service,com.luan.webSocket"/>
+    <!-- 1.配置数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!-- 2创建sqlSession会话工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- mapper配置文件  如果不配做mybatis全局属性可以不配 -->
+        <!-- 	<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+        <!-- 配置mapper文件路径 -->
+        <property name="mapperLocations" value="classpath:com/luan/mapper/*Mapper.xml"/>
+        <property name="typeAliasesPackage" value="com.luan.model"/>
+    </bean>
+
+    <!-- 3.创建mapper代理对象 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 1配置回话工厂  如果当前项目只有一个会话工厂 可以不配  如果多个回话工厂 需要指定具体的回话工厂
+            注意： 这里不能使用sqlSessionFactory属性 ，会出现冲突   使用名称进行注入  对应应该是value 不是 ref-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.luan.dao"/>
+    </bean>
+    <!-- 加事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 1.使用配置方式添加事务 -->
+    <!-- <tx:advice id="advice1" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" isolation="DEFAULT" propagation="REQUIRED"/>
+            <tx:method name="update*"/>
+            <tx:method name="del*"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        切入点
+        <aop:pointcut expression="execution(* com.td.service.impl.*(..))" id="pointcut"/>
+        <aop:advisor advice-ref="advice1"/>
+    </aop:config> -->
+    <!-- 2.开启事务注解 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+  <import resource="spring-redis.xml"></import>
+
+
+</beans>

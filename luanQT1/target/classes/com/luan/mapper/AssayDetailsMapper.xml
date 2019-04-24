@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luan.dao.AssayDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.luan.model.AssayDetails" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="standard" property="standard" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="marge_code" property="margeCode" jdbcType="VARCHAR" />
+    <result column="assay_id" property="assayId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, item_name, standard, value, marge_code, assay_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from assay_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from assay_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.luan.model.AssayDetails" >
+    insert into assay_details (id, item_name, standard, 
+      value, marge_code, assay_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{margeCode,jdbcType=VARCHAR}, #{assayId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.luan.model.AssayDetails" >
+    insert into assay_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="standard != null" >
+        standard,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="margeCode != null" >
+        marge_code,
+      </if>
+      <if test="assayId != null" >
+        assay_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="margeCode != null" >
+        #{margeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assayId != null" >
+        #{assayId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luan.model.AssayDetails" >
+    update assay_details
+    <set >
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="margeCode != null" >
+        marge_code = #{margeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assayId != null" >
+        assay_id = #{assayId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luan.model.AssayDetails" >
+    update assay_details
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      marge_code = #{margeCode,jdbcType=VARCHAR},
+      assay_id = #{assayId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

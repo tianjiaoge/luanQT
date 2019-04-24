@@ -1,0 +1,80 @@
+body{ background:#f3f4f8 url("../images/bg.png"); background-repeat: repeat;
+}
+.fixed-top {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 104px;
+    z-index: 9999;
+    background-color: #F8F8F8;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #666;
+}
+.title{
+    width: 100%;height:62px;line-height:62px;align-content: center; text-align: center;
+}
+.title img{
+    width:54px; height:54px;margin-top:-10px;
+}
+.title H1{
+    display:inline;padding-top:20px;
+}
+.operation{
+    float: left;
+}
+.operation ul{
+    list-style: none;
+    margin-left: 20px;
+}
+.operation ul li{
+    cursor:pointer;
+    display: inline;
+    margin-right: 20px;
+    float:left
+}
+.operation ul li img{
+    width: 32px;
+    height: 32px;
+}
+
+.user{
+    width:300px;height: 32px; align-content: center; text-align: center; font-size: 20px;
+    float: right;
+}
+.user a{
+    margin-left:36px;color:blue;
+}
+.display{
+    margin-top: 104px
+}
+.display li{
+    background-color:#2e6ad6; width:99%; float:left; height:2em; margin-top:5px; line-height:2em; font-size:3.8em; color:#fff; padding:0 6px; overflow:auto;
+}
+.display li.hy{
+    background-color: #FF0601;
+}
+.display li span{
+     margin:0px 0.2em; color:#fff;
+}
+.display li span.on{
+    color:#00FF00;
+}
+.hide {
+    visibility: hidden;
+}
+.display  li b{
+    border: solid 1px #fff;
+    height: 2em;
+    margin-top: 0.6em;
+    margin-right: 1em;
+    line-height: 2em;
+    padding: 0 1em;
+    font-weight: normal;
+    font-size: 0.58em;
+    float: right;
+}
+.display  li b a{ color:#fff; text-decoration:none; display:block; width:100%; height:100%;font-size:1em;}
+.display  li b.on{ border:solid 1px #36F; color:#00FF00;}
+.display  li b.on a{ color:#36f;}
